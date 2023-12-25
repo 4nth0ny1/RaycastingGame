@@ -13,8 +13,6 @@ class Game:
         self.delta_time = 1
         self.new_game()
 
-    # test
-
     def new_game(self):
         self.map = Map(self)
         self.player = Player(self)
