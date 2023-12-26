@@ -28,7 +28,7 @@ class NPC(AnimatedSprite):
         self.check_animation_time()
         self.get_sprite()
         self.run_logic()
-        self.draw_ray_cast()
+        # self.draw_ray_cast()
 
     def animate_death(self):
         if not self.alive:
@@ -57,6 +57,10 @@ class NPC(AnimatedSprite):
             dy = math.sin(angle) * self.speed
             self.check_wall_collision(dx, dy)
 
+    def attack(self):
+        if self.animation_trigger:
+            self.game.sound.npc_shot.play()
+
     def animate_pain(self):
         self.animate(self.pain_images)
         if self.animation_trigger:
@@ -80,17 +84,27 @@ class NPC(AnimatedSprite):
         if self.alive:
             self.ray_cast_value = self.ray_cast_player_npc()
             self.check_hit_in_npc()
+
             if self.pain:
                 self.animate_pain()
+
             elif self.ray_cast_value:
                 self.player_search_trigger = True
-                self.animate(self.walk_images)
-                self.movement()
+
+                if self.dist < self.attack_dist:
+                    self.animate(self.attack_images)
+                    self.attack()
+                else:
+                    self.animate(self.walk_images)
+                    self.movement()
+
             elif self.player_search_trigger:
                 self.animate(self.walk_images)
                 self.movement()
+
             else:
                 self.animate(self.idle_images)
+
         else:
             self.animate_death()
 
