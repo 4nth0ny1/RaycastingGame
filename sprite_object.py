@@ -3,7 +3,8 @@ from settings import *
 
 
 class SpriteObject:
-    def __init__(self, game, path='resources/sprites/static_sprites/candlebra.png', pos=(10.5, 3.5), scale=0.5, shift=0.0):
+    def __init__(self, game, path='resources/sprites/static_sprites/candlebra.png',
+                 pos=(10.5, 3.5), scale=0.7, shift=0.27):
         self.game = game
         self.player = game.player
         self.x, self.y = pos
@@ -23,7 +24,8 @@ class SpriteObject:
         image = pg.transform.scale(self.image, (proj_width, proj_height))
 
         self.sprite_half_width = proj_width // 2
-        pos = self.screen_x - self.sprite_half_width, HALF_HEIGHT - proj_height // 2
+        height_shift = proj_height * self.SPRITE_HEIGHT_SHIFT
+        pos = self.screen_x - self.sprite_half_width, HALF_HEIGHT - proj_height // 2 + height_shift
 
         self.game.raycasting.objects_to_render.append((self.norm_dist, image, pos))
 
