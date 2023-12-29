@@ -1,5 +1,6 @@
 from sprite_object import *
 from random import randint, random
+import settings
 
 
 class NPC(AnimatedSprite):
@@ -81,6 +82,7 @@ class NPC(AnimatedSprite):
         if self.health < 1:
             self.alive = False
             self.game.sound.npc_death.play()
+            settings.AMMO += 2
 
     def run_logic(self):
         if self.alive:

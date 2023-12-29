@@ -1,4 +1,5 @@
 from settings import *
+import settings
 import pygame as pg
 import math
 
@@ -29,6 +30,7 @@ class Player:
             self.game.object_renderer.game_over()
             pg.display.flip()
             pg.time.delay(1500)
+            settings.AMMO = 20
             self.game.new_game()
 
     def get_damage(self, damage):
@@ -43,6 +45,7 @@ class Player:
                 self.game.sound.shotgun.play()
                 self.shot = True
                 self.game.weapon.reloading = True
+                settings.AMMO -= 1
 
     def movement(self):
         sin_a = math.sin(self.angle)

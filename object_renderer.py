@@ -22,6 +22,7 @@ class ObjectRenderer:
         self.draw_background()
         self.render_game_objects()
         self.draw_player_health()
+        self.draw_player_ammo()
 
     def game_over(self):
         self.screen.blit(self.game_over_image, (0, 0))
@@ -35,12 +36,18 @@ class ObjectRenderer:
             settings.LEVEL = 1
         self.screen.blit(self.blood_screen, (0, 0))
         self.screen.blit(self.win_image, (0, 0))
+        settings.AMMO = 20
 
     def draw_player_health(self):
         health = str(self.game.player.health)
         for i, char in enumerate(health):
             self.screen.blit(self.digits[char], (i * self.digit_size, 0))
         self.screen.blit(self.digits['10'], ((i + 1) * self.digit_size, 0))
+
+    def draw_player_ammo(self):
+        ammo = str(settings.AMMO)
+        for i, char in enumerate(ammo):
+            self.screen.blit(self.digits[char], (i * self.digit_size, 100))
 
     def player_damage(self):
         self.screen.blit(self.blood_screen, (0, 0))
