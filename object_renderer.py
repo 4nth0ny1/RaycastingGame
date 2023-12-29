@@ -1,5 +1,6 @@
 import pygame as pg
 from settings import *
+import settings
 
 
 class ObjectRenderer:
@@ -26,6 +27,12 @@ class ObjectRenderer:
         self.screen.blit(self.game_over_image, (0, 0))
 
     def win(self):
+        if settings.LEVEL == 1:
+            settings.LEVEL += 1
+        elif settings.LEVEL == 2:
+            settings.LEVEL += 1
+        else:
+            settings.LEVEL = 1
         self.screen.blit(self.blood_screen, (0, 0))
         self.screen.blit(self.win_image, (0, 0))
 
